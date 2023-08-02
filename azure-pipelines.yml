@@ -1,11 +1,28 @@
-# Generate Report
-- name: Generate Report
-  run: |
-    newman run "TestCollection.postman_collection9.json" -e "MasterAPI ENV.postman_environment1.json" -r htmlextra --reporter-htmlextra-export $(Build.ArtifactStagingDirectory)/report.html
+trigger:
+- main
 
-# Publish the Report
-- name: Publish Report
-  uses: actions/upload-artifact@v2
-  with:
-    name: Reports
-    path: $(Build.ArtifactStagingDirectory)/report.html
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- checkout: self
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g newman
+    npm install -g newman-reporter-htmlextra
+  displayName: 'Install Newman and Reporter'
+
+- script: |
+    newman run "TestCollection.postman_collection9.json" -e "MasterAPI ENV.postman_environment1.json" -r htmlextra --reporter-htmlextra-export $(Build.ArtifactStagingDirectory)/report.html
+  displayName: 'Run Newman tests and generate report'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'NewmanReports'
+  displayName: 'Publish Newman report as artifact'
