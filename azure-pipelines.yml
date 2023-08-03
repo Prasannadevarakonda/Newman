@@ -13,16 +13,12 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      npm install -g newman
-      npm install -g newman-reporter-htmlextra
-    displayName: 'Install Newman and Reporter'
-
-  - script: |
-      newman run "TestCollection.postman_collection10.json" -e "MasterAPI ENV.postman_environment1.json" --reporters htmlextra
+      npm install -g newman newman-reporter-htmlextra
+      newman run "TestCollection.postman_collection10.json" -e "MasterAPI ENV.postman_environment1.json" --reporters htmlextra --reporter-htmlextra-export $(Build.ArtifactStagingDirectory)/report.html
     displayName: 'Run Newman tests and generate report'  
 
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'drop'
+      ArtifactName: 'NewmanReports'
       publishLocation: 'Container'
