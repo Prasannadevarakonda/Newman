@@ -18,7 +18,7 @@ steps:
     displayName: 'Install Newman and Reporter'
 
   - script: |
-      newman run "TestCollection.postman_collection9.json" -e "MasterAPI ENV.postman_environment1.json" 
+      newman run "TestCollection.postman_collection10.json" -e "MasterAPI ENV.postman_environment1.json" 
     displayName: 'Run Newman tests and generate report'  
 
   - task: PublishBuildArtifacts@1
