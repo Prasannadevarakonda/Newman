@@ -92,18 +92,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"try {\r",
-							"\r",
-							"        const statusCode = pm.response.code;\r",
-							"        pm.test(\"Status code: \" + statusCode, function () {\r",
-							"            pm.expect(statusCode).to.equal(200);\r",
-							"        });\r",
-							"\r",
-							"} catch (error) {\r",
-							"    pm.test(\"Test results - Error\", function () {\r",
-							"        throw new Error(\"Error: \" + error.message);\r",
-							"    });\r",
-							"}"
+							
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
