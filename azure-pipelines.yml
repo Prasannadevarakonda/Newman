@@ -19,9 +19,10 @@ steps:
 
   - script: |
       newman run "TestCollection.postman_collection9.json" -e "MasterAPI ENV.postman_environment1.json" 
-    
+    displayName: 'Run Newman tests and generate report'  
 
   - task: PublishBuildArtifacts@1
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'NewmanReports'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
