@@ -14,7 +14,7 @@ steps:
 
   - script: |
       npm install -g newman newman-reporter-htmlextra
-      newman run "TestCollection.postman_collection10.json" -e "MasterAPI ENV.postman_environment1.json"  -d API_TestData.csv  --reporters htmlextra --reporter-htmlextra-export $(Build.ArtifactStagingDirectory)/report.html
+      newman run newman run "GILDA API Automation.postman_collection1.json" -e "MasterAPI ENV.postman_environment3.json"  -d API_TestData.csv  --reporters htmlextra --reporter-htmlextra-export $(Build.ArtifactStagingDirectory)/report.html
     displayName: 'Run Newman tests and generate report'  
 
   - task: PublishBuildArtifacts@1
